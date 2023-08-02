@@ -5,6 +5,7 @@ A new Flutter project.
 ## Getting Started
 
 This project is a starting point for a Flutter application.
+This project is helpful for every one to control our money flow.
 
 A few resources to get you started if this is your first Flutter project:
 
