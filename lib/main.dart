@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -6,24 +7,32 @@ import 'package:money_management/db/transaction_db.dart';
 import 'package:money_management/models/category/category_model.dart';
 import 'package:money_management/models/transactions/transaction_model.dart';
 import 'package:money_management/screens/splash.dart';
+import 'dart:ui_web';
 
 const saveKeyName = 'User logged in';
 
-Future<void> main()async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await Hive.initFlutter(); 
+   debugEmulateFlutterTesterEnvironment = true;
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyBvPevgqJl2ZvScMibRUTnKC0HjZZ3mI5M",
+          appId: "1:376080914738:web:acc7c4952ce75e695d5f2b",
+          messagingSenderId: "376080914738",
+          projectId: "money-management-35c24"));
 
-if(!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)){
-  Hive.registerAdapter(CategoryModelAdapter());
-}
-if(!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)){
-  Hive.registerAdapter(TransactionModelAdapter());
-}
+  await Hive.initFlutter();
 
-   await Hive.openBox<TransactionModel>(transactionDBName);
-   await Hive.openBox<CategoryModel>(categoryDBName);
+  if (!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)) {
+    Hive.registerAdapter(CategoryModelAdapter());
+  }
+  if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
+    Hive.registerAdapter(TransactionModelAdapter());
+  }
 
-  
+  await Hive.openBox<TransactionModel>(transactionDBName);
+  await Hive.openBox<CategoryModel>(categoryDBName);
+
   runApp(const MyApp());
   TransactionDB().getAllTransactions();
 }
@@ -39,7 +48,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
             systemOverlayStyle:
-                SystemUiOverlayStyle(statusBarColor: Colors.black)  ),
+                SystemUiOverlayStyle(statusBarColor: Colors.black)),
         primarySwatch: Colors.blueGrey,
       ),
       home: const SafeArea(

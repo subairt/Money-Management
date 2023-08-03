@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: const EdgeInsets.all(50),
                   child: SizedBox(
-                      height: 350,
+                      height: 300,
                       width: 370,
                       child: Image.asset(
                         "assets/images/mngr3.png",
@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
                   key: _formkey,
                   child: SizedBox(
                     width: screenWidth * .6,
-                    height: screenHeight * .08,
+                    height: screenHeight * .05,
                     child: TextFormField(
                       controller: _usernameController,
                       decoration: InputDecoration(
